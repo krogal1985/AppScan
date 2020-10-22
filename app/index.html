@@ -1,0 +1,308 @@
+<DOCTYPE html>
+<html>
+<head>
+<style>	
+    [my="1"] {
+        background-color:#99dfaa !important;
+    }
+</style>
+
+
+<link rel="stylesheet" href="css/main.css" />
+
+<div class="mycenter" id="loding" >Загрузка...</div>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="libs/jQueryMobile/themes/my.css" />
+<link rel="stylesheet" href="libs/jQueryMobile/themes/jquery.mobile.icons.min.css" />
+<link rel="stylesheet" href="libs/jQueryMobile/themes/jquery.mobile-1.4.5.min.css" />
+<link rel="stylesheet" href="css/table.css"/>
+
+<script src="libs/jQuery/jquery-1.12.4.min.js"></script>
+
+<script src="libs/jQueryMobile/jquery.mobile-1.4.5.min.js"></script>
+
+<script src="libs/moment.js"></script> 
+
+
+
+
+
+<script>
+	function addScript(src){
+		var script = document.createElement('script');
+		script.src = src;
+		script.async = false; // false --- чтобы гарантировать порядок
+		//script.onerror = onloadWidgetErr;
+		//script.onload = onloadWidget;
+		document.head.appendChild(script);   
+	}
+
+	ver = '1.0 09';
+	//ver = Date.now();
+
+	addScript("js/myUtils.js?time=" + ver);
+	addScript("js/dialogs.js?time=" + ver);
+	addScript("js/Zayavki.js?time=" + ver);
+	addScript("js/work.js?time=" + ver);
+</script>
+
+	
+</head>
+<body>
+  
+
+
+
+
+<!--	pageMain	-->
+<div data-role="page" id="pageMain">
+	<div data-role="header">
+
+		<h1>Главная</h1>
+		<a href="#settings" data-icon="gear" class="ui-btn ui-btn-right ui-icon-gear ui-btn-icon-notext ui-corner-all"></a>
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#pageMain" class="ui-button ui-shadow ui-corner-all ui-widget ui-button-inherit ui-btn-active ui-state-persist">Главная</a></li>
+				<li><a href="#allDocs"  class="ui-button ui-shadow ui-corner-all ui-widget ui-button-inherit">Список документов</a></li>
+
+			</ul>
+		</div>
+	</div>
+	
+	<ul data-role="listview" data-inset="true">
+	
+		<li class="ui-field-contain">
+		<br>
+			<a href="#" onclick="onClickNewPrihod()">Новый приход:</a>
+		</li>			
+	</ul>
+
+
+	<li class="ui-field-contain">
+		<fieldset class="ui-grid-a">
+			<div class="ui-block-a">
+
+			</div>
+
+		</fieldset>
+	</li>
+
+	<li class="ui-field-contain">
+		<!--<input type="button" class="ui-button-a" value="---" onclick=""> -->	
+	</li>
+
+</div><!--	pageMain	-->
+
+<!--	Список документов		-->
+<div data-role="page" id="allDocs">
+	<div data-role="header">
+		<h1>Список документов</h1>
+		<a href="#settings" data-icon="gear" class="ui-btn ui-btn-right ui-icon-gear ui-btn-icon-notext ui-corner-all"></a>
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#pageMain" class="ui-button ui-shadow ui-corner-all ui-widget ui-button-inherit">Главная</a></li>
+				<li><a href="#allDocs"  class="ui-button ui-shadow ui-corner-all ui-widget ui-button-inherit ui-btn-active ui-state-persist">Список документов</a></li>
+			</ul>
+		</div>
+		<div role="main" class="ui-content">
+			<table id="tableHistory" data-role="table" id="movie-table-custom" data-mode="reflow" class="movie-list ui-responsive"><thead><tr><td>Дата</td><td>Тип документа</td><td>Комментарий</td></tr></thead>
+				<tbody>
+				</tbody>
+			</table>	
+
+		</div>  
+	
+	</div>
+
+</div><!--	Список документов		-->
+
+
+<!-- 	Новый документ		-->
+<div data-role="page" id="pageNewDoc">
+	<div data-role="header" >
+		<a href="#" data-icon="back" data-rel="back" class="ui-btn-left">Назад</a>
+
+		<h1 id="txtAdr">EditByFunc</h1>
+	</div>
+	
+	<div data-role="content" >	
+		<label for="newDocDate">Дата</label>
+		<input type="date" name="newDocDate" id="newDocDate" value="" tabindex="1">				
+
+		<div id="mkrdom">				
+			<label for="newDocComm">Комментарий</label>
+			<input type="text" name="newDocComm" id="newDocComm" value="" tabindex="2" data-clear-btn="true">
+						<ul data-role="listview" data-inset="true" id="searchresultFrom2">
+						</ul>
+
+		</div>				
+	</div>
+
+
+    
+	<input id="btOK" type="button" value="OK" >						
+	<!--<div data-role="footer"></div> -->		
+</div><!--		Новый документ		-->
+
+
+<!--	Диалог при сканировании		-->
+
+<div data-role="page" id="dlg_edit_item">
+	<div data-role="header" >
+		<a href="#" data-icon="back" data-rel="back" class="ui-btn-left">Назад</a>
+
+		<h1 id="info">Изменить</h1>
+	</div>
+	
+	<ul data-role="listview" data-inset="false">
+		<li class="ui-field-contain">
+			<label for="scan">Штрих код:</label>
+			<div id="scan">value</div>
+		</li>
+		
+		<li class="ui-field-contain">
+			<label for "choce_edit_hw">Тип оборудования:</label>
+			<button id="choce_edit_hw" class="ui-shadow ui-corner-all ui-btn ui-mini" value="" onclick="show_dlg_edit_hw(this)">Введите тип оборудования</button>
+		
+		</li>
+	
+		<li>
+			<label for "scanComment">Комментарий:</label>
+			<input placeholder="" id="scanComment" data-clear-btn="true">
+		</li>	
+
+	</ul>
+	<div data-role="navbar">
+		<ul>
+			<li><input class=" ui-btn ui-shadow ui-corner-all" id ="bt_save_dlg_scan" type="button" value="Сохранить" onclick=""></li>
+			<li><input class=" ui-btn ui-shadow ui-corner-all" id ="bt_del_dlg_scan" type="button" value="Удалить" onclick="scanItemDel()"></li>
+		</ul>
+	</div><!-- /navbar -->
+	
+
+	
+</div><!--	Диалог при сканировании		-->
+
+
+<!--	Изменить тип оборудования		-->
+<div data-role="page" id="page_edit_hw" data-theme="a">
+	<div data-role="popup" id="edit_hw_popupMenu" data-theme="a">
+		<ul data-role="listview" data-inset="true" style="min-width:210px;">
+			<li data-role="list-divider">Меню</li>
+			<li><a href="#" onclick="HistorySer.clear()">Очистить истроию</a></li>
+		</ul>
+	</div>
+	
+	<div data-role="header" >
+		<a href="#" data-icon="back" data-rel="back"  class="ui-btn-left">Назад</a>
+		<a href="#edit_hw_popupMenu" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a" data-transition="pop">Меню</a>
+		<h1 id="info">Изменить</h1>
+	</div>	
+	
+	<div role="main" class="ui-content">
+			<input type="search"  id="new_scan_dlg_hw" value="" tabindex="1"/>
+			<ul data-role="listview" data-inset="true" id="new_scan_dlg_hw_search" data-filter="false" 
+                    data-input="#new_scan_dlg_hw"
+                    data-filter-reveal="false">
+			</ul>
+
+		<button type="" data-rel="back"  class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-check" 
+			onclick="onClick_dlg_edit_hw_ok()">OK</button>
+	</div>
+					
+</div>
+
+
+<!--	Новое сканирование		-->
+<div data-role="page" id="newscan">
+	<div data-role="popup" id="allDocs_popupMenu" data-theme="a">
+		<ul data-role="listview" data-inset="true" style="min-width:210px;">
+			<li data-role="list-divider">Меню-Приход</li>
+			<li><a href="#" onclick="editCurDoc()">Изменить</a></li>
+			<li><a href="#" onclick="scanSave()">Экспорт в файл только ШК</a></li>
+			<li><a href="#" onclick="scanSaveAll()">Экспорт в файл</a></li>
+			<li><a href="#">Очистить</a></li>
+			<li><a href="#" onclick="delCurDoc()">Удалить</a></li>
+		</ul>
+	</div>
+	
+
+	
+	
+	<div data-role="header" >
+		<a href="#allDocs" data-icon="back"  class="ui-btn-left">Назад</a>
+		<a href="#allDocs_popupMenu" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a" data-transition="pop">Меню</a>
+	</div>
+
+	<div role="main" class="ui-content">
+
+			<div id="newScanDT" align="center">---</div>
+			<div id="newScanComm" align="center">---</div>
+			
+			<div id="captionNoZakaz" align="center">Начните сканировать</div>
+			
+			<button id="new_scan_dlg_hw1" class="ui-shadow ui-corner-all ui-btn ui-mini" onclick="show_dlg_edit_hw(this)">Введите тип оборудования</button>
+			
+
+			<table id="tableId" data-role="table" id="movie-table-custom" data-mode="reflow" class="movie-list ui-responsive">
+				<thead>
+					<tr><td>ШК</td><td>Тип обор.</td><td>Комментарий</td></tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			  
+		</div> 
+	
+
+	
+				
+</div><!--	Новое сканирование		-->
+
+
+
+
+
+
+<!-- 		Настройки		-->
+<div data-role="page" id="settings"> 
+	<div  id="verApp"></div>
+	<div data-role="header" data-position="fixed">
+		<a href="#pageMain">Закрыть</a>
+		<h1>Настройки</h1>
+	</div> 
+
+	<div  data-role="content">		
+</div>	
+</div> 
+<!--		Настройки		-->
+
+
+
+
+
+
+<!--		Диалог Сообщение		-->
+<div data-role="dialog" id="dlgINFO1" data-confirmed="no" data-dismissible="false" > 
+	<div data-role="content" >
+		<h1>Сообщение</h1>
+		<h3 class="ui-title"></h3>
+		<a href="#" class="btclickOK ui-btn ui-corner-all ui-shadow ui-btn ui-btn-a">OK</a>
+	</div>
+</div>
+<!--		Диалог Сообщение		-->
+
+<!--		Диалог Сообщение с подтверждением		-->
+<div data-role="dialog" id="dlgINFOConfirm" data-confirmed="no"  data-dismissible="false" style="max-width:500px;">
+	<div data-role="content">
+		<h1>Сообщение</h1>
+		<h3 class="ui-title"></h3>
+		<a href="#" style="width:20%" class="btclickOK ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a">Да</a>
+		<a href="#" style="width:20%" class="btclickNO ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a optionCancel" data-transition="flow">Нет</a>
+	</div>
+</div>					
+<!--		Диалог Сообщение с подтверждением		-->
+</body>
+</html>
