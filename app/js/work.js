@@ -386,6 +386,9 @@ function onClick_dlg_edit_hw_ok(){
 
 function onClickScanItem(is){
 	console.log(is);
+	$(is).parent().children().removeClass('active');
+	$(is).addClass('active');
+	
 	
 	var scan_item = Data.curDoc.scanList[is.rowIndex-1];
 	
@@ -432,10 +435,10 @@ function scanBuff(key){
 	if (key == 'Enter'){
 	    onScanFinish(scanReaded);
 	    scanReaded = '';
-		$('#captionNoZakaz').css('color', 'black');
+		$('#captionNewScan').css('color', 'black');
     }else{  
         scanReaded += key;
-		$('#captionNoZakaz').css('color', 'red');
+		$('#captionNewScan').css('color', 'red');
 	
 	}
 }

@@ -39,7 +39,7 @@
 		document.head.appendChild(script);   
 	}
 
-	ver = '1.0 09';
+	ver = '1.1';
 	//ver = Date.now();
 
 	addScript("js/myUtils.js?time=" + ver);
@@ -55,7 +55,7 @@
 
 
 
-
+<div id="AppScan" style="width:100%; height:100%; overflow-y:auto">
 <!--	pageMain	-->
 <div data-role="page" id="pageMain">
 	<div data-role="header">
@@ -65,7 +65,7 @@
 		<div data-role="navbar">
 			<ul>
 				<li><a href="#pageMain" class="ui-button ui-shadow ui-corner-all ui-widget ui-button-inherit ui-btn-active ui-state-persist">Главная</a></li>
-				<li><a href="#allDocs"  class="ui-button ui-shadow ui-corner-all ui-widget ui-button-inherit">Список документов</a></li>
+				<li><a href="#allDocs"  class="ui-button ui-shadow ui-corner-all ui-widget ui-button-inherit">Документы</a></li>
 
 			</ul>
 		</div>
@@ -95,15 +95,15 @@
 
 </div><!--	pageMain	-->
 
-<!--	Список документов		-->
+<!--	Документы		-->
 <div data-role="page" id="allDocs">
 	<div data-role="header">
-		<h1>Список документов</h1>
+		<h1>Документы</h1>
 		<a href="#settings" data-icon="gear" class="ui-btn ui-btn-right ui-icon-gear ui-btn-icon-notext ui-corner-all"></a>
 		<div data-role="navbar">
 			<ul>
 				<li><a href="#pageMain" class="ui-button ui-shadow ui-corner-all ui-widget ui-button-inherit">Главная</a></li>
-				<li><a href="#allDocs"  class="ui-button ui-shadow ui-corner-all ui-widget ui-button-inherit ui-btn-active ui-state-persist">Список документов</a></li>
+				<li><a href="#allDocs"  class="ui-button ui-shadow ui-corner-all ui-widget ui-button-inherit ui-btn-active ui-state-persist">Документы</a></li>
 			</ul>
 		</div>
 		<div role="main" class="ui-content">
@@ -116,7 +116,7 @@
 	
 	</div>
 
-</div><!--	Список документов		-->
+</div><!--	Документы		-->
 
 
 <!-- 	Новый документ		-->
@@ -148,7 +148,6 @@
 
 
 <!--	Диалог при сканировании		-->
-
 <div data-role="page" id="dlg_edit_item">
 	<div data-role="header" >
 		<a href="#" data-icon="back" data-rel="back" class="ui-btn-left">Назад</a>
@@ -227,21 +226,19 @@
 			<li><a href="#" onclick="delCurDoc()">Удалить</a></li>
 		</ul>
 	</div>
-	
 
-	
-	
 	<div data-role="header" >
 		<a href="#allDocs" data-icon="back"  class="ui-btn-left">Назад</a>
 		<a href="#allDocs_popupMenu" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a" data-transition="pop">Меню</a>
+		<h1>
+			<div id="newScanDT" align="center">---</div>
+			<div id="newScanComm" align="center">---</div>
+		</h1>
 	</div>
 
 	<div role="main" class="ui-content">
 
-			<div id="newScanDT" align="center">---</div>
-			<div id="newScanComm" align="center">---</div>
-			
-			<div id="captionNoZakaz" align="center">Начните сканировать</div>
+			<div id="captionNewScan" align="center">Начните сканировать</div>
 			
 			<button id="new_scan_dlg_hw1" class="ui-shadow ui-corner-all ui-btn ui-mini" onclick="show_dlg_edit_hw(this)">Введите тип оборудования</button>
 			
@@ -304,5 +301,8 @@
 	</div>
 </div>					
 <!--		Диалог Сообщение с подтверждением		-->
+
+</div> <!-- AppScan-->
+
 </body>
 </html>
